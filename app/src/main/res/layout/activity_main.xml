@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageSwitcher
+        android:id="@+id/imageIs"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"/>
+    <Button
+        android:id="@+id/previousBtn"
+        android:text="Previous"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_below="@id/imageIs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:text="Next"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/nextBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageIs"
+        android:layout_alignParentRight="true" />
+
+    <Button
+        android:id="@+id/pickImagesBtn"
+        android:text="Pick Images"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/noCopies"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/pickImagesBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-72dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginRight="158dp"
+        android:text="The no of copies"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:id="@+id/editCopies"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/pickImagesBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-135dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginRight="160dp"
+        android:hint="New Copies"
+        android:inputType="number"/>
+
+</RelativeLayout>
