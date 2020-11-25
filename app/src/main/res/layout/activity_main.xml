@@ -37,19 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/noCopies"
-        android:layout_height="40dp"
-        android:layout_alignTop="@id/pickImagesBtn"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="-72dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginRight="158dp"
-        android:text="The no of copies"
-        android:textColor="@color/black"/>
-
     <EditText
         android:layout_width="wrap_content"
         android:id="@+id/editCopies"
@@ -62,5 +49,35 @@
         android:layout_marginRight="160dp"
         android:hint="New Copies"
         android:inputType="number"/>
+
+    <Switch
+        android:id="@+id/color_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_alignTop="@id/pickImagesBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-72dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
+        android:padding="10dp"
+        android:text="Color   "
+        android:textOff="No"
+        android:textOn="Yes" />
+
+    <Switch
+        android:id="@+id/poster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/pickImagesBtn"
+        android:layout_marginTop="-69dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_toStartOf="@+id/color_photo"
+        android:layout_toLeftOf="@+id/color_photo"
+        android:padding="10dp"
+        android:text="Poster "
+        android:textOff="No"
+        android:textOn="Yes" />
 
 </RelativeLayout>

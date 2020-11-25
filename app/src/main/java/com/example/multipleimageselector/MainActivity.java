@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
@@ -24,13 +25,18 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageSwitcher imageIs;
     private Button previousBtn,nextBtn,selectImageBtn;
-    private TextView noCopies;
     private EditText editCopies;
+    private Switch color,poster;
+
     private ArrayList<Uri> imageUris;
     private ArrayList<Integer> noOfCopies;
+    private ArrayList<Boolean> colorPrint;
+    private ArrayList<Boolean> posterPrint;
+
 
     private static final int PICK_IMAGES_CODE=0;
     int copies = 1;
+    String  colorPrintEnabled = "No",posterEnabled="No";
 
     //position of selected image
     int position=0;
@@ -44,12 +50,15 @@ public class MainActivity extends AppCompatActivity {
         previousBtn=findViewById(R.id.previousBtn);
         nextBtn=findViewById(R.id.nextBtn);
         selectImageBtn=findViewById(R.id.pickImagesBtn);
-        noCopies=findViewById(R.id.noCopies);
         editCopies=findViewById(R.id.editCopies);
+        color=findViewById(R.id.color_photo);
+        poster=findViewById(R.id.poster);
 
        //init list
         imageUris=new ArrayList<>();
         noOfCopies=new ArrayList<>();
+        colorPrint=new ArrayList<>();
+        posterPrint=new ArrayList<>();
 
         // Setup image Switcher
         imageIs.setFactory(new ViewSwitcher.ViewFactory() {
@@ -57,6 +66,34 @@ public class MainActivity extends AppCompatActivity {
             public View makeView() {
                 ImageView imageView=new ImageView(getApplicationContext());
                 return imageView;
+            }
+        });
+
+        color.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (colorPrintEnabled.equals("No")) {
+                    colorPrintEnabled = "Yes";
+                    colorPrint.set(position,true);
+                } else {
+                    colorPrintEnabled = "No";
+                    colorPrint.set(position,false);
+                }
+
+            }
+        });
+
+        poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (posterEnabled.equals("No")) {
+                    posterEnabled = "Yes";
+                    posterPrint.set(position,true);
+                } else {
+                    posterEnabled = "No";
+                    posterPrint.set(position,false);
+                }
+
             }
         });
 
@@ -76,8 +113,9 @@ public class MainActivity extends AppCompatActivity {
                 if (!editCopies.getText().toString().equals("")) {
                     int copy = Integer.valueOf(editCopies.getText().toString().trim());
                     if (copy != 0) {
-                      //  noOfCopies.set(position,copies);
+
                         copies = copy;
+                        noOfCopies.set(position,copies);
                      //   editCopies.setText(noOfCopies.get(position).toString());
                     } else {
                         Toast.makeText(MainActivity.this, "Enter correct copies", Toast.LENGTH_SHORT).show();
@@ -102,8 +140,9 @@ public class MainActivity extends AppCompatActivity {
                 if(position>0){
                     position--;
                     imageIs.setImageURI(imageUris.get(position));
-                    noCopies.setText(noOfCopies.get(position).toString());
                     editCopies.setText(noOfCopies.get(position).toString());
+                    color.setChecked(colorPrint.get(position));
+                    poster.setChecked(posterPrint.get(position));
                 }
                 else{
                     Toast.makeText(MainActivity.this, "No Previous Images..", Toast.LENGTH_SHORT).show();
@@ -117,8 +156,9 @@ public class MainActivity extends AppCompatActivity {
                 if(position<imageUris.size()-1){
                     position++;
                     imageIs.setImageURI(imageUris.get(position));
-                    noCopies.setText(noOfCopies.get(position).toString());
                     editCopies.setText(noOfCopies.get(position).toString());
+                    color.setChecked(colorPrint.get(position));
+                    poster.setChecked(posterPrint.get(position));
                 }
                 else{
                     Toast.makeText(MainActivity.this, "No More Images... ", Toast.LENGTH_SHORT).show();
@@ -148,24 +188,44 @@ public class MainActivity extends AppCompatActivity {
                     for(int i=0;i<cout;i++){
                         //Get Image Uri at every Position
                         Uri imageUri=data.getClipData().getItemAt(i).getUri();
+
+                        //Populating Arrays
                         imageUris.add(imageUri);// Added to array
                         noOfCopies.add(1);
+                        colorPrint.add(false);
+                        posterPrint.add(false);
 
                     }
 
                     //Setting first image to image switcher
                     imageIs.setImageURI(imageUris.get(0));
-                    noCopies.setText(noOfCopies.get(0).toString());
+
+                    //Setting No of copies in edit text
+                    editCopies.setText(noOfCopies.get(0).toString());
+
+                    //Setting Switches
+                    color.setChecked(colorPrint.get(0));
+                    poster.setChecked(posterPrint.get(0));
+
+
+
+                    //Setting Position
                     position=0;
 
                 }
                 else{
                     //picked single image
                     Uri imageUri=data.getData();
+
+                    //Populating Arrays
                     imageUris.add(imageUri);
                     noOfCopies.add(1);
+
                     imageIs.setImageURI(imageUris.get(0));
-                    noCopies.setText(noOfCopies.get(0).toString());
+                    editCopies.setText(noOfCopies.get(0).toString());
+                    color.setChecked(colorPrint.get(0));
+                    poster.setChecked(posterPrint.get(0));
+
                     position=0;
                 }
             }
