@@ -220,6 +220,8 @@ public class MainActivity extends AppCompatActivity {
                     //Populating Arrays
                     imageUris.add(imageUri);
                     noOfCopies.add(1);
+                    colorPrint.add(false);
+                    posterPrint.add(false);
 
                     imageIs.setImageURI(imageUris.get(0));
                     editCopies.setText(noOfCopies.get(0).toString());
