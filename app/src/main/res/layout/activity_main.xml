@@ -123,6 +123,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:text="TotalCost"
+        android:textColor="@color/black"
+        android:textSize="25dp"/>
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:outlineAmbientShadowColor="@color/black"
+                android:padding="5dp" />
+            <TextView
+                android:layout_width="80dp"
+                android:id="@+id/totalCost"
+                android:layout_height="30dp"
+                android:text="0"
+                android:textSize="25dp"
+                />
+        </LinearLayout>
 
 
 </LinearLayout>

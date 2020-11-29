@@ -26,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageSwitcher imageIs;
     private Button previousBtn,nextBtn,selectImageBtn;
     private EditText editCopies;
+    private TextView totalCost;
     private Switch color,poster;
 
     private ArrayList<Uri> imageUris;
     private ArrayList<Integer> noOfCopies;
     private ArrayList<Boolean> colorPrint;
     private ArrayList<Boolean> posterPrint;
+    private ArrayList<Integer> eachCost;
 
 
     private static final int PICK_IMAGES_CODE=0;
@@ -53,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
         editCopies=findViewById(R.id.editCopies);
         color=findViewById(R.id.color_photo);
         poster=findViewById(R.id.poster);
+        totalCost=findViewById(R.id.totalCost);
 
        //init list
         imageUris=new ArrayList<>();
         noOfCopies=new ArrayList<>();
         colorPrint=new ArrayList<>();
         posterPrint=new ArrayList<>();
+        eachCost=new ArrayList<>();
 
         // Setup image Switcher
         imageIs.setFactory(new ViewSwitcher.ViewFactory() {
@@ -194,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         noOfCopies.add(1);
                         colorPrint.add(false);
                         posterPrint.add(false);
+                        eachCost.add(2);
 
                     }
 
@@ -207,7 +212,14 @@ public class MainActivity extends AppCompatActivity {
                     color.setChecked(colorPrint.get(0));
                     poster.setChecked(posterPrint.get(0));
 
+                    //test
+                    int sum = 0;
+                    for (int i: eachCost) {
+                        sum += i;
+                    }
 
+                    Integer iInteger = new Integer(sum);
+                    totalCost.setText(iInteger.toString());
 
                     //Setting Position
                     position=0;
