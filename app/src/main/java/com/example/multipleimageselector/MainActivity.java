@@ -20,6 +20,7 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,9 +80,11 @@ public class MainActivity extends AppCompatActivity {
                 if (colorPrintEnabled.equals("No")) {
                     colorPrintEnabled = "Yes";
                     colorPrint.set(position,true);
+                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 } else {
                     colorPrintEnabled = "No";
                     colorPrint.set(position,false);
+                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 }
 
             }
@@ -93,9 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 if (posterEnabled.equals("No")) {
                     posterEnabled = "Yes";
                     posterPrint.set(position,true);
+                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 } else {
                     posterEnabled = "No";
                     posterPrint.set(position,false);
+                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 }
 
             }
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                         copies = copy;
                         noOfCopies.set(position,copies);
-                     //   editCopies.setText(noOfCopies.get(position).toString());
+                        sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                     } else {
                         Toast.makeText(MainActivity.this, "Enter correct copies", Toast.LENGTH_SHORT).show();
                     }
@@ -212,14 +217,9 @@ public class MainActivity extends AppCompatActivity {
                     color.setChecked(colorPrint.get(0));
                     poster.setChecked(posterPrint.get(0));
 
-                    //test
-                    int sum = 0;
-                    for (int i: eachCost) {
-                        sum += i;
-                    }
+                    //Setting Toatal Cost
 
-                    Integer iInteger = new Integer(sum);
-                    totalCost.setText(iInteger.toString());
+                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
 
                     //Setting Position
                     position=0;
@@ -239,10 +239,36 @@ public class MainActivity extends AppCompatActivity {
                     editCopies.setText(noOfCopies.get(0).toString());
                     color.setChecked(colorPrint.get(0));
                     poster.setChecked(posterPrint.get(0));
-
+                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                     position=0;
                 }
             }
         }
+    }
+
+
+    //Total Cost Calculation
+    public static void sumTotal(List<Integer> copies,List<Boolean> color,List<Boolean> poster,TextView tv) {
+        int sum = 0;
+        for (int i: copies) {
+            sum += i*2;
+        }
+
+        for (boolean j: color) {
+            int index=0;
+            if(j==true){
+                sum+=copies.get(index)*8;
+            }
+        }
+
+        for (boolean j: poster) {
+            int index=0;
+            if(j==true){
+                sum+=copies.get(index)*10;
+            }
+        }
+
+        Integer temp=new Integer(sum);
+        tv.setText(temp.toString());
     }
 }
