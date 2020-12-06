@@ -148,5 +148,11 @@
                 />
         </LinearLayout>
 
+    <Button
+        android:id="@+id/checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CheckOut" />
+
 
 </LinearLayout>

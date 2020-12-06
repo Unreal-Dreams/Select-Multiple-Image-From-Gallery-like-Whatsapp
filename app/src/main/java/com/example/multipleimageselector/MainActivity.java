@@ -25,7 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ImageSwitcher imageIs;
-    private Button previousBtn,nextBtn,selectImageBtn;
+    private Button previousBtn,nextBtn,selectImageBtn,checkout;
     private EditText editCopies;
     private TextView totalCost;
     private Switch color,poster;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         color=findViewById(R.id.color_photo);
         poster=findViewById(R.id.poster);
         totalCost=findViewById(R.id.totalCost);
+        checkout=findViewById(R.id.checkout);
 
        //init list
         imageUris=new ArrayList<>();
@@ -74,17 +75,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
+            }
+        });
+
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (colorPrintEnabled.equals("No")) {
                     colorPrintEnabled = "Yes";
                     colorPrint.set(position,true);
-                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
+                    //sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 } else {
                     colorPrintEnabled = "No";
                     colorPrint.set(position,false);
-                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
+                    //sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 }
 
             }
@@ -96,11 +104,9 @@ public class MainActivity extends AppCompatActivity {
                 if (posterEnabled.equals("No")) {
                     posterEnabled = "Yes";
                     posterPrint.set(position,true);
-                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 } else {
                     posterEnabled = "No";
                     posterPrint.set(position,false);
-                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                 }
 
             }
@@ -125,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
                         copies = copy;
                         noOfCopies.set(position,copies);
-                        sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                     } else {
                         Toast.makeText(MainActivity.this, "Enter correct copies", Toast.LENGTH_SHORT).show();
                     }
@@ -217,10 +222,6 @@ public class MainActivity extends AppCompatActivity {
                     color.setChecked(colorPrint.get(0));
                     poster.setChecked(posterPrint.get(0));
 
-                    //Setting Toatal Cost
-
-                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
-
                     //Setting Position
                     position=0;
 
@@ -239,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
                     editCopies.setText(noOfCopies.get(0).toString());
                     color.setChecked(colorPrint.get(0));
                     poster.setChecked(posterPrint.get(0));
-                    sumTotal(noOfCopies,colorPrint,posterPrint,totalCost);
                     position=0;
                 }
             }
@@ -250,21 +250,15 @@ public class MainActivity extends AppCompatActivity {
     //Total Cost Calculation
     public static void sumTotal(List<Integer> copies,List<Boolean> color,List<Boolean> poster,TextView tv) {
         int sum = 0;
-        for (int i: copies) {
-            sum += i*2;
-        }
-
-        for (boolean j: color) {
-            int index=0;
-            if(j==true){
-                sum+=copies.get(index)*8;
-            }
-        }
-
-        for (boolean j: poster) {
-            int index=0;
-            if(j==true){
-                sum+=copies.get(index)*10;
+        for (int i = 0; i < copies.size(); i++) {
+            if(color.get(i) && poster.get(i)){
+                sum+=copies.get(i)*20;
+            }else if(color.get(i)){
+                sum+=copies.get(i)*10;
+            }else if(poster.get(i)){
+                sum+=copies.get(i)*12;
+            }else{
+                sum+=copies.get(i)*2;
             }
         }
 
